@@ -11,6 +11,7 @@ mongoose.connect(process.env.MONGO_URI_STORE).then(() => {
 })
 
 const app = express()
+app.use(express.json())
 
 app.use((err, req,res, next) => {
     const statusCode = err.statusCode || 500
@@ -29,4 +30,4 @@ app.listen(PORT, () => {
 })
 
 app.use('/api/user', userRouter)
-app.use('/api/user', authRouter)
+app.use('/api/auth', authRouter)

@@ -61,25 +61,13 @@ const SignUp = () => {
               className="password w-full rounded-sm !focus:bg-white"
             />
           </Form.Item>
-          {/* {errMsg && (
-            <Form.Item>
-              <Tag
-                className="flex h-10 w-full items-center justify-center"
-                color="red"
-              >
-                <span>{errMsg}</span>
-              </Tag>
-            </Form.Item>
-          )} */}
 
           <Form.Item>
             <ButtonComponent
-            //   loading={isLoading}
               htmlType="submit"
               className="rounded-sm bg-slate-800 w-full uppercase"
               name="Sign Up"
             />
-              
           </Form.Item>
         </Form>
       </div>

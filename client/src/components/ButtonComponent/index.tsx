@@ -1,8 +1,10 @@
-import { Button } from 'antd'
+import { Button } from "antd"
 
-const ButtonComponent = ({onClick, className, icon, name}: any) => {
+const ButtonComponent = ({ onClick, className, icon, name, htmlType }: any) => {
   return (
-    <Button onClick={onClick} className={className} type='primary' icon={icon}>{name}</Button>
+    <Button onClick={onClick} htmlType={htmlType} className={className} type="primary" size="large">
+      {name}
+    </Button>
   )
 }
 

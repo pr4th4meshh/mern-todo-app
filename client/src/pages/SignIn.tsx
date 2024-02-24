@@ -1,12 +1,68 @@
 import { Form, Input, Image } from "antd"
 import ButtonComponent from "../components/ButtonComponent"
 import viteSvg from '../../public/vite.svg'
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import {
+  signInStart,
+  signInFailure,
+  signInSuccess,
+} from "../redux/slices/userSlice"
+import { ChangeEvent } from "react"
 
-const onFinish = (values: unknown) => {
-  console.log("Success:", values)
+interface User {
+  _id: string
+  username: string
+  email: string
+  // other user properties
+}
+
+interface UserState {
+  currentUser: User
+  loading: boolean
+  error: string
+  // other user-related state properties
+}
+
+interface RootState {
+  user: UserState
 }
 
 const SignIn = () => {
+  // const [formData, setFormData] = useState({})
+// const { loading, error } = useSelector((state: RootState) => state.user)
+const navigate = useNavigate()
+const dispatch = useDispatch()
+
+const onFinish = async (values: { email: string; password: string }) => {
+  // e.preventDefault()
+  try {
+    dispatch(signInStart())
+    const res = await fetch("/api/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+    console.log(values)
+    const data = await res.json()
+    console.log(data)
+    if (data.success === false) {
+      dispatch(signInFailure(data.message))
+      return
+    }
+    dispatch(signInSuccess(data))
+    navigate("/")
+  } catch (error) {
+    let errorMessage = "Failed to do something exceptional";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    console.log(errorMessage);
+    dispatch(signInFailure(errorMessage))
+  }
+}
   return (
     <div className="flex h-screen w-screen flex-col items-center justify-center bg-white">
       <div className="flex flex-col items-center justify-center ">
@@ -31,10 +87,10 @@ const SignIn = () => {
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ message: "Please input your username!", required: true }]}
+            rules={[{ message: "Please input your email!", required: true }]}
           >
             <Input
-              placeholder="Enter Username"
+              placeholder="Enter Email"
               size="large"
               className="w-full rounded-sm !focus:bg-white"
             />
@@ -59,6 +115,9 @@ const SignIn = () => {
               name="Sign Up"
             />
           </Form.Item>
+          <div>
+          <h1 className="text-lg">Don't have an account? <Link className="text-blue-500" to="/signup">Sign In</Link></h1>
+        </div>
         </Form>
       </div>
     </div>

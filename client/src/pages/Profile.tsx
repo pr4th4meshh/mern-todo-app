@@ -23,9 +23,8 @@ interface RootState {
 
 const Profile = () => {
   const { currentUser } = useSelector((state: RootState) => state.user)
-  console.log(currentUser)
   return (
-    <div className="p-3 flex h-screen w-screen max-w-lg mx-auto">
+    <div className="p-3 flex max-w-lg mx-auto">
       <div className="flex items-center justify-center flex-col">
         <h1 className="text-3xl font-semibold text-center my-3">Profile</h1>
         <Form
@@ -36,7 +35,6 @@ const Profile = () => {
           initialValues={{ remember: true }}
           // onFinish={onFinish}
           // onFinishFailed={onFinishFailed}
-          autoComplete="on"
         >
           <Form.Item name="avatar">
             <div className="flex items-center justify-center">

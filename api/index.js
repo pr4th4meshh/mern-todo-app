@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import "dotenv/config"
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
+import todoRouter from './routes/todo.route.js'
 
 mongoose.connect(process.env.MONGO_URI_STORE).then(() => {
     console.log("Connected to mongodb!")
@@ -31,3 +32,4 @@ app.listen(PORT, () => {
 
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/todo', todoRouter)

@@ -3,6 +3,7 @@ import ButtonComponent from "../components/ButtonComponent"
 import viteSvg from "/vite.svg"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import OAuth from "../components/OAuth"
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false)
@@ -98,6 +99,9 @@ const SignUp = () => {
               className="rounded-sm bg-slate-800 w-full uppercase"
               name="Sign Up"
             />
+          </Form.Item>
+          <Form.Item>
+            <OAuth/>
           </Form.Item>
         </Form>
       </div>

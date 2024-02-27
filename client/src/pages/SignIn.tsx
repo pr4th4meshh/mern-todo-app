@@ -2,40 +2,19 @@ import { Form, Input, Image } from "antd"
 import ButtonComponent from "../components/ButtonComponent"
 import viteSvg from '../../public/vite.svg'
 import { Link, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import {
   signInStart,
   signInFailure,
   signInSuccess,
 } from "../redux/slices/userSlice"
-import { ChangeEvent } from "react"
-
-interface User {
-  _id: string
-  username: string
-  email: string
-  // other user properties
-}
-
-interface UserState {
-  currentUser: User
-  loading: boolean
-  error: string
-  // other user-related state properties
-}
-
-interface RootState {
-  user: UserState
-}
+import OAuth from "../components/OAuth"
 
 const SignIn = () => {
-  // const [formData, setFormData] = useState({})
-// const { loading, error } = useSelector((state: RootState) => state.user)
 const navigate = useNavigate()
 const dispatch = useDispatch()
 
 const onFinish = async (values: { email: string; password: string }) => {
-  // e.preventDefault()
   try {
     dispatch(signInStart())
     const res = await fetch("/api/auth/signin", {
@@ -114,6 +93,9 @@ const onFinish = async (values: { email: string; password: string }) => {
               className="rounded-sm bg-slate-800 w-full uppercase"
               name="Sign Up"
             />
+          </Form.Item>
+          <Form.Item>
+            <OAuth/>
           </Form.Item>
           <div>
           <h1 className="text-lg">Don't have an account? <Link className="text-blue-500" to="/signup">Sign In</Link></h1>

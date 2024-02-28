@@ -4,6 +4,7 @@ import "dotenv/config"
 import userRouter from './routes/user.route.js'
 import authRouter from './routes/auth.route.js'
 import todoRouter from './routes/todo.route.js'
+import cookieParser from "cookie-parser"
 
 mongoose.connect(process.env.MONGO_URI_STORE).then(() => {
     console.log("Connected to mongodb!")
@@ -13,6 +14,7 @@ mongoose.connect(process.env.MONGO_URI_STORE).then(() => {
 
 const app = express()
 app.use(express.json())
+app.use(cookieParser())
 
 app.use((err, req,res, next) => {
     const statusCode = err.statusCode || 500
